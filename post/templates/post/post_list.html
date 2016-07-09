@@ -1,0 +1,22 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+    {% for item in posts %}
+        <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box">
+                 <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+                 <h3>{{ item.title }}</h3>
+                <div class="image">
+                    <img src="{{ item.picture.url }}" width="100%" alt="">
+                </div>
+                <p class="text-muted">{{ item.text }}</p>
+                <a href="{% url 'post_like' item.id %}" class="btn btn-primary">{{ item.likes }} Like</a>
+                <a href="{% url 'post_dislike' item.id %}" class="btn btn-primary">{{ item.dislikes }} Dislike</a>
+                <a class="header">Admin</a>
+                <div class="meta">
+                     <span class="date">{{ item.created_at }}</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
