@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
     url(r'^post/like/(?P<id>\S+)/$', views.likes_detail, name='post_like'),
     url(r'^post/dislike/(?P<id>\S+)/$', views.dislikes_detail, name='post_dislike'),
+    url(r'^post/post_detail/(?P<info_id>\S+)/$', views.post_detail, name='post_detail')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\
   + static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)

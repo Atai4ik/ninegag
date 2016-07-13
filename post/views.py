@@ -10,6 +10,11 @@ def post_list(request):
     })
 
 
+def post_detail(request, info_id):
+    posts = Post.objects.get(pk=info_id)
+    return render(request, "post/post_detail.html", {'posts': posts})
+
+
 def likes_detail(request, id):
     post = Post.objects.get(id=id)
     post.likes += 1

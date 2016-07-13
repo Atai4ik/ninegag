@@ -1,0 +1,14 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+
+    <div class="image">
+        <img src="{{ posts.picture.url }}" width="500" alt="">
+    </div>
+
+<p> {{ posts.title }}</p>
+<p> {{ posts.text }}</p>
+<p> {{ posts.date }}</p>
+
+
+{% endblock %}
