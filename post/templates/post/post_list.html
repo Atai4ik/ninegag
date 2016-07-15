@@ -1,15 +1,20 @@
 {% extends 'post/base.html' %}
 
 {% block content %}
+    <form action=".">
+        <input type="text" name="query" value="{{ query | default:'' }} ">
+        <input type="submit" value="Найти">
+    </form>
     {% for item in posts %}
         <div class="col-lg-3 col-md-6 text-center">
             <div class="service-box">
                  <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
                  <a href="{% url 'post_detail' item.id %}"> <h3>{{ item.title }}</h3></a>
                 <div class="image">
-                    <img src="{{ item.picture.url }}" width="200" height="150" alt="">
+                    <a href="{% url 'post_detail' item.id %}">
+                    <img src="{{ item.picture.url }}" width="200" height="150" alt="" style="margin-bottom: 20px">
+                        </a>
                 </div>
-                <p class="text-muted">{{ item.text }}</p>
                 <a href="{% url 'post_like' item.id %}" class="btn btn-primary">{{ item.likes }} Like</a>
                 <a href="{% url 'post_dislike' item.id %}" class="btn btn-primary">{{ item.dislikes }} Dislike</a>
                 <a class="header">Admin</a>

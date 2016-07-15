@@ -1,14 +1,20 @@
+
+
 {% extends 'post/base.html' %}
 
 {% block content %}
 
+<div style="margin: 0 0 0 350px; width: 500px">
     <div class="image">
         <img src="{{ posts.picture.url }}" width="500" alt="">
     </div>
+    <p> {{ posts.title }}</p>
+    <p> {{ posts.text | linebreaks }}</p>
+    <p> {{ posts.date }}</p>
+    <a href="{% url 'post_list' %}">Назад</a>
 
-<p> {{ posts.title }}</p>
-<p> {{ posts.text }}</p>
-<p> {{ posts.date }}</p>
+</div>
+
 
 
 {% endblock %}
