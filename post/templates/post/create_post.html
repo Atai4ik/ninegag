@@ -1,10 +1,17 @@
 {% extends 'post/base.html' %}
 
 {% block content %}
-<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit">
-</form>
-    <br>
+    <div>
+        <form method="POST" class="col-lg-6" enctype="multipart/form-data">{% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-primary" type="submit">
+        </form>
+
+    </div>
+
+
     <a href="{% url 'post_list' %}">Назад</a>
+
+
+
 {% endblock %}

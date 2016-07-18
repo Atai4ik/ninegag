@@ -3,10 +3,11 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from redactor.fields import RedactorField
 
 
 class Categories(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name=u'Название')
     slug = models.SlugField(max_length=30)
 
     class Meta:
@@ -18,15 +19,15 @@ class Categories(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name=u'Название')
     slug = models.SlugField(max_length=30)
-    category = models.ForeignKey(Categories, blank=True, null=True)
-    date = models.DateTimeField(auto_now_add=True)
-    picture = models.ImageField(upload_to='post/post_picture/')
-    text = models.TextField()
+    category = models.ForeignKey(Categories, blank=True, null=True, verbose_name=u'Категория')
+    date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата')
+    picture = models.ImageField(upload_to='post/post_picture/', verbose_name=u'Картинка')
+    text = RedactorField(verbose_name=u'Текст')
     display = models.BooleanField(default=True)
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = u'пост'
