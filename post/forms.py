@@ -1,7 +1,7 @@
 # coding: utf-8
 from django import forms
-
 from post.models import Post
+from django.core.files.images import get_image_dimensions
 
 
 class PostForm(forms.ModelForm):
@@ -38,18 +38,21 @@ class PostForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        if len(slug) < 5:
-            raise forms.ValidationError('Минимум 8 символов')
+        if Post.objects.filter(slug=slug).exists():
+            raise forms.ValidationError('Такой slug уже существует')
         return slug
 
     def clean_picture(self):
         picture = self.cleaned_data.get('picture', False)
-        if picture:
-            if picture.size > 1 * 1024 * 1024:
-                raise forms.ValidationError('Картинка должна быть максимум 1 мгбайт')
-            return picture
+        w, h = get_image_dimensions(picture)
+        if picture.size > 1 * 1024 * 1024:
+            raise forms.ValidationError('Картинка должна быть максимум 1 мгбайт')
+        elif w != 400:
+            raise forms.ValidationError("Ширина картинки %i пиксель. Должно быть 400px" % w)
+        elif h != 400:
+            raise forms.ValidationError("Высота картинки %i пиксель. Должно быть 400px" % h)
         else:
-            raise forms.ValidationError('Не могу загрузить картинку')
+            return picture
 
     def clean_text(self):
         text = self.cleaned_data['text']
