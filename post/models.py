@@ -20,7 +20,7 @@ class Categories(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name=u'Название')
-    slug = models.SlugField(max_length=30)
+    slug = models.SlugField(max_length=30, unique=True)
     category = models.ForeignKey(Categories, blank=True, null=True, verbose_name=u'Категория')
     date = models.DateTimeField(auto_now_add=True, verbose_name=u'Дата')
     picture = models.ImageField(upload_to='post/post_picture/', verbose_name=u'Картинка')
