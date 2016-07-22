@@ -56,5 +56,21 @@ def create_post(request):
     return render(request, 'post/create_post.html', {'form': form})
 
 
+def update_post(request, id):
+    post = Post.objects.get(id=id)
+    form = PostForm(
+        request.POST or None, request.FILES or None, instance=post
+    )
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    return render(request, 'post/create_post.html', {'form': form})
+
+
+def delete_post(request, id):
+    post = Post.objects.get(id=id)
+    post.delete()
+    return redirect('/')
+
 
 

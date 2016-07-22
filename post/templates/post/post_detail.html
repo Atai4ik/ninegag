@@ -12,7 +12,19 @@
     <p> {{ posts.text | linebreaks }}</p>
     <p> {{ posts.date }}</p>
     <a href="{% url 'post_list' %}">Назад</a>
-
+    <br>
+    <div>
+        <div class="pull-right" class="dropdown">
+            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                редактровать
+                <span class="caret"></span>
+            </button>
+            <ul  class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="{% url 'update_post' posts.id %}">редактировать</a></li>
+                <li><a href="{% url 'delete_post' posts.id %}">удалить</a></li>
+            </ul>
+        </div>
+</div>
 </div>
 
 

@@ -21,9 +21,9 @@ class PostForm(forms.ModelForm):
             'category': forms.Select(attrs={
                 'class': 'form-control',
             }),
-            'picture': forms.FileInput(attrs={
-                'class': 'form-control',
-            }),
+            # 'picture': forms.FileInput(attrs={
+            #     'class': 'form-control',
+            # }),
             'text': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите текст'
@@ -36,21 +36,13 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError('Минимум 8 символов')
         return title
 
-    def clean_slug(self):
-        slug = self.cleaned_data['slug']
-        if Post.objects.filter(slug=slug).exists():
-            raise forms.ValidationError('Такой slug уже существует')
-        return slug
-
     def clean_picture(self):
         picture = self.cleaned_data.get('picture', False)
         w, h = get_image_dimensions(picture)
         if picture.size > 1 * 1024 * 1024:
             raise forms.ValidationError('Картинка должна быть максимум 1 мгбайт')
-        elif w != 400:
-            raise forms.ValidationError("Ширина картинки %i пиксель. Должно быть 400px" % w)
-        elif h != 400:
-            raise forms.ValidationError("Высота картинки %i пиксель. Должно быть 400px" % h)
+        if w < 40 and h < 40:
+            raise forms.ValidationError("Высота картинки %i пиксель. Должно быть больше 400x400px" % h)
         else:
             return picture
 
