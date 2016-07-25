@@ -52,3 +52,5 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError('Тест должен содержать как минимум одно предложение')
         return text
 
+
+
